@@ -17,6 +17,8 @@ Code of the master's thesis of Anjana Suresh, Hochschule Hof (2026). The system 
 
 Each folder is self-contained. Its scripts import each other by name and find their data relative to their own location. Some modules are therefore present in more than one folder, as identical copies. `tools/sync_copies.py` copies them again after a change, and `tests/test_copies_in_sync.py` fails if a copy differs.
 
+[`CODEBASE_MAP.md`](CODEBASE_MAP.md) shows how the folders connect, the order of the steps, and every file with what it imports and which files use it.
+
 ## Getting the code onto JupyterHub
 
 In a JupyterHub terminal:
