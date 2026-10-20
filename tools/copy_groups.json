@@ -1,0 +1,126 @@
+[
+ {
+  "canonical": "evaluation/rater_notes.py",
+  "copies": ["recognizers/rater_notes.py"]
+ },
+ {
+  "canonical": "pipeline/carry_forward.py",
+  "copies": ["evaluation/carry_forward.py"]
+ },
+ {
+  "canonical": "pipeline/carry_tag.py",
+  "copies": ["evaluation/carry_tag.py"]
+ },
+ {
+  "canonical": "pipeline/entity_correct.py",
+  "copies": ["evaluation/entity_correct.py"]
+ },
+ {
+  "canonical": "pipeline/evaluate_speaker_attribution.py",
+  "copies": ["evaluation/evaluate_speaker_attribution.py"]
+ },
+ {
+  "canonical": "pipeline/gap_recover.py",
+  "copies": ["evaluation/gap_recover.py"]
+ },
+ {
+  "canonical": "pipeline/generate_protocols.py",
+  "copies": ["evaluation/generate_protocols.py"]
+ },
+ {
+  "canonical": "pipeline/handover_naming.py",
+  "copies": ["evaluation/handover_naming.py"]
+ },
+ {
+  "canonical": "pipeline/invented_names.py",
+  "copies": ["evaluation/invented_names.py"]
+ },
+ {
+  "canonical": "pipeline/known_leaks.py",
+  "copies": ["evaluation/known_leaks.py"]
+ },
+ {
+  "canonical": "pipeline/language_gate.py",
+  "copies": ["evaluation/language_gate.py"]
+ },
+ {
+  "canonical": "pipeline/name_align.py",
+  "copies": ["evaluation/name_align.py"]
+ },
+ {
+  "canonical": "pipeline/name_check.py",
+  "copies": ["evaluation/name_check.py"]
+ },
+ {
+  "canonical": "pipeline/normalize_structure.py",
+  "copies": ["evaluation/normalize_structure.py"]
+ },
+ {
+  "canonical": "pipeline/attribution_baselines.py",
+  "copies": ["evaluation/attribution_baselines.py"]
+ },
+ {
+  "canonical": "pipeline/postedit_effort.py",
+  "copies": ["evaluation/postedit_effort.py"]
+ },
+ {
+  "canonical": "pipeline/protocol_repair.py",
+  "copies": ["evaluation/protocol_repair.py"]
+ },
+ {
+  "canonical": "pipeline/protokoll.py",
+  "copies": ["evaluation/protokoll.py"]
+ },
+ {
+  "canonical": "pipeline/speaker_turns_v11.py",
+  "copies": ["evaluation/speaker_turns_v11.py"]
+ },
+ {
+  "canonical": "pipeline/stale_flag.py",
+  "copies": ["evaluation/stale_flag.py"]
+ },
+ {
+  "canonical": "pipeline/style_exemplars.py",
+  "copies": ["evaluation/style_exemplars.py"]
+ },
+ {
+  "canonical": "pipeline/style_flag.py",
+  "copies": ["evaluation/style_flag.py"]
+ },
+ {
+  "canonical": "pipeline/term_source.py",
+  "copies": ["evaluation/term_source.py"]
+ },
+ {
+  "canonical": "pipeline/thesis_pipeline/__init__.py",
+  "copies": ["evaluation/thesis_pipeline/__init__.py", "recognizers/thesis_pipeline/__init__.py"]
+ },
+ {
+  "canonical": "pipeline/thesis_pipeline/env.py",
+  "copies": ["evaluation/thesis_pipeline/env.py"]
+ },
+ {
+  "canonical": "pipeline/thesis_pipeline/protocol_validate.py",
+  "copies": ["evaluation/thesis_pipeline/protocol_validate.py"]
+ },
+ {
+  "canonical": "pipeline/thesis_pipeline/text_norm.py",
+  "copies": ["evaluation/thesis_pipeline/text_norm.py", "recognizers/thesis_pipeline/text_norm.py"]
+ },
+ {
+  "canonical": "pipeline/transcript_repair.py",
+  "copies": ["evaluation/transcript_repair.py"]
+ },
+ {
+  "canonical": "pipeline/validate_protocols_v10.py",
+  "copies": ["evaluation/validate_protocols_v10.py"]
+ },
+ {
+  "canonical": "pipeline/verify_short_turns.py",
+  "copies": ["evaluation/verify_short_turns.py"]
+ },
+ {
+  "canonical": "pipeline/voice_profiles.py",
+  "copies": ["evaluation/voice_profiles.py"]
+ }
+]

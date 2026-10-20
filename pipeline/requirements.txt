@@ -1,0 +1,17 @@
+# Step 2 (protokoll.py) and the terminal scripts, in ~/protokollenv on JupyterHub (Python 3.10).
+# Install torch and torchaudio 2.6.0 from the CPU index first, see ../environments/README.md.
+numpy==2.2.3
+scipy==1.15.2
+jiwer==4.0.0
+soundfile==0.14.0
+python-docx==1.2.0
+pypdf==6.14.2
+requests==2.32.3
+spacy==3.8.14
+# after installing spaCy:  python -m spacy download de_core_news_sm   (3.8.0 was used)
+torch==2.6.0
+torchaudio==2.6.0
+transformers==5.14.1
+
+# The GPU notebooks of step 1 use two other environments (NeMo, pyannote),
+# see ../environments/README.md and ../environments/CLUSTER_SETUP.md.

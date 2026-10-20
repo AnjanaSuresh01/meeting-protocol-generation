@@ -1,0 +1,44 @@
+# keys
+.env
+*.env
+!.env.example
+env.txt*
+
+# private data: recordings, transcripts, references, protocols, results
+data/
+outputs/
+goldset/
+goldset_provided/
+pipeline_outputs_extracted/
+outputs_*/
+bias_full/
+dist/
+whisper_long_redecode/
+manifest_biasing_full.json
+cache_gap_recovery.json
+voices.json
+transcript_gate*.json
+v10_asr_results.zip
+config.json
+Meeting*.md
+Meeting*.docx
+Meeting*.pdf
+Team-Meeting*
+
+# audio, video, archives
+*.wav
+*.mp3
+*.flac
+*.mp4
+*.m4a
+*.ogg
+*.zip
+
+# logs and caches
+*.log
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.pytest_cache/
+.cache/
+desktop.ini
