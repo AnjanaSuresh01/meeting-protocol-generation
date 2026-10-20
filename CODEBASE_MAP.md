@@ -168,7 +168,7 @@ Front page, list of changes, settings, and this map.
 | [`.gitignore`](.gitignore) | Tells Git which files never to upload: the key file, audio, data folders, outputs, logs and caches. | – | – |
 | [`CHANGES.md`](CHANGES.md) | The list of changes made on 19 October: shortened comments, two renamed files, 30 small fixes. Each fix with its file, what was wrong and what it does now. | – | – |
 | [`CODEBASE_MAP.md`](CODEBASE_MAP.md) | This map: how the folders connect, the order of the steps, and every file with its imports. | – | – |
-| [`README.md`](README.md) | The first page of the repository. It explains the folders, how to clone the code on JupyterHub, how to run the tests, where the data are and which LISA model the thesis used. | – | – |
+| [`README.md`](README.md) | The first page of the repository. Its "Start here" section shows the two ways to generate protocols, with the files and commands of each. It also explains the folders, how to clone the code on JupyterHub, how to run the tests, where the data are and which LISA model the thesis used. | – | – |
 | [`pytest.ini`](pytest.ini) | Settings for the test suite (`python -m pytest` looks in `tests/`). | – | – |
 | [`requirements-dev.txt`](requirements-dev.txt) | The one extra package for the tests: pytest 9.1.1. | – | – |
 
