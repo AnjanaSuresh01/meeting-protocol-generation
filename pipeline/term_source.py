@@ -463,7 +463,7 @@ def main() -> None:
             from entity_lexicon import ALL_NAMES
         except ImportError:
             print("--compare needs entity_lexicon.py (the retired hand-written list), "
-                  "which is not part of this repository.")
+                  "which is only in evaluation/.")
             return
         print("AUTOMATIC EXTRACTION vs THE RETIRED HAND-WRITTEN LIST")
         print("=" * 92)

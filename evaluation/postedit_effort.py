@@ -6,7 +6,7 @@ As a script, it compares TREE/<model>/<meeting>/protocol_<lisa><SUFFIX>.md with 
 protocol of each meeting, prints ADD (reference bullets the draft misses), DELETE (draft
 bullets the reference lacks) and KEEP per model and LISA model, and writes the rows to
 goldset/<JSON>; a relative TREE and goldset/ are resolved from this file's folder.
-The script mode needs evaluate_protocols.py, which is not part of this repository. Without it,
+The script mode needs evaluate_protocols.py, which is only in evaluation/. Without it,
 a run says so and exits with code 1.
 
     python postedit_effort.py [--tree TREE] [--suffix SUFFIX] [--json JSON]
@@ -65,7 +65,7 @@ def main() -> int:
     try:
         from evaluate_protocols import REF, strip_backlog, OUT, LISA
     except ImportError:
-        print("postedit_effort.py needs evaluate_protocols.py, which is not part of this repository.")
+        print("postedit_effort.py needs evaluate_protocols.py, which is only in evaluation/.")
         return 1
     tree = Path(args.tree) if args.tree else OUT
     if not tree.is_absolute():

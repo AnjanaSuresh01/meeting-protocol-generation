@@ -46,3 +46,24 @@ This code produced the thesis results. On 19 October 2026 it was tidied. No chan
 | `evaluation/compare_asr_trio.py` | read only the old wording of the handover line in run logs | reads the old and the new wording |
 
 The copies of these files in `evaluation/` carry the same changes.
+
+# Additions of 29 October 2026
+
+`evaluation/` now holds the code behind Sections 5.3 to 5.7 of the thesis, the runs with GLM 5.3 Flash, and the scripts that draw the figures. These files were added:
+
+- 63 scripts and `thesis_pipeline/diarization_eval.py` for Sections 5.3 to 5.7
+- `vote_vs_singles.py` and `whisper_lineage_closeness.py` for Section 5.2
+- 8 figure scripts in `evaluation/figures/`
+
+They are the scripts that produced the stored results, with these changes:
+
+- Docstrings and comments were rewritten in the same way as on 19 October. For every file, the syntax tree without docstrings is the same before and after.
+- Printed messages, table labels and the header of the blind reading sheet were reworded in neutral terms, in 76 places. Keys and values that go into result files did not change, with one exception. `strip_copies_rescore.py` no longer stores a quoted request in the `meta` block of its result file.
+- Three scripts were renamed after what they compute: `speaking_order_test.py`, `recount_numbers.py` and `recount_numbers_part2.py`. Imports of older module names now point to `attribution_baselines.py` and `rater_notes.py`.
+- Seven scripts read a fixed folder on the author's computer. They now read the folder they are in.
+- The figure scripts find `goldset/` one folder above their own.
+- `postedit_effort.py` and `term_source.py --compare` now say that `evaluate_protocols.py` and `entity_lexicon.py` are only in `evaluation/`, in every copy.
+- `tests/test_structure.py` does not import the 15 scripts that do their work when they are loaded. It expects `FileNotFoundError` from 9 more that read a data file when they are loaded.
+- `.gitignore` also covers `der_answers.json` and the PNG files that the figure scripts write.
+
+On 29 October each script ran on a copy of the data, once with the code before these changes and once after. Both gave the same result files and the same printed numbers, apart from the reworded messages and the removed quotation. `evaluation/README.md` describes the check.

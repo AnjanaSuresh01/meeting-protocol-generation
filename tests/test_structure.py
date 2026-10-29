@@ -2,7 +2,9 @@
 
 Two modules read a goldset file at import time, so without the corpus they fail
 with FileNotFoundError. That failure is also their frozen no-argument behavior
-(see test_cli_surface), so it is pinned below instead of fixed. Any new import
+(see test_cli_surface), so it is pinned below instead of fixed. Some evaluation
+scripts have no __main__ guard and do their work at module level; importing one
+would run it, so they are skipped here and only run as scripts. Any new import
 failure fails the test. The second test checks that generate_protocols imports
 with no LISA_* variable set.
 """
@@ -27,6 +29,35 @@ FOLDERS = ["pipeline", "evaluation", "recognizers"]
 PINNED_IMPORT_FAILURES = {
     "evaluation/check_turbo_seeding.py": "FileNotFoundError",
     "recognizers/whisper_long_redecode.py": "FileNotFoundError",
+    # these read config.json or a goldset file at import, directly or through evaluate_protocols
+    "evaluation/delete_interval_2026-10-12.py": "FileNotFoundError",
+    "evaluation/evaluate_protocols.py": "FileNotFoundError",
+    "evaluation/model_comparison_2026-10-12.py": "FileNotFoundError",
+    "evaluation/score_der.py": "FileNotFoundError",
+    "evaluation/score_editforward.py": "FileNotFoundError",
+    "evaluation/score_repair_rerun.py": "FileNotFoundError",
+    "evaluation/strip_copies_rescore.py": "FileNotFoundError",
+    "evaluation/thirds_recall.py": "FileNotFoundError",
+    "evaluation/unsaid_bullets_check.py": "FileNotFoundError",
+}
+
+# scripts without a __main__ guard: importing them runs them, so they are not imported
+RUN_ON_IMPORT = {
+    "evaluation/check_identical_lines.py",
+    "evaluation/depth_compare_ch5.py",
+    "evaluation/evaltx_word_retiming.py",
+    "evaluation/invented_examples_check_2026-10-12.py",
+    "evaluation/koelner_fix_replay.py",
+    "evaluation/lisa_models_listing.py",
+    "evaluation/lisa_pro_probe.py",
+    "evaluation/name_cases_after_repair.py",
+    "evaluation/paired_and_null_2026-10-11.py",
+    "evaluation/per_meeting_2026-10-12.py",
+    "evaluation/run_deliverable.py",
+    "evaluation/score_deliverable.py",
+    "evaluation/short_turn_names_2026-10-26.py",
+    "evaluation/trend_thirds_2026-10-11.py",
+    "evaluation/whisper_lineage_closeness.py",
 }
 
 
@@ -53,6 +84,8 @@ def test_all_modules_import():
             rel = f.relative_to(fdir).with_suffix("")
             name = ".".join(rel.parts)
             key = f"{folder}/{rel.as_posix()}.py"
+            if key in RUN_ON_IMPORT:
+                continue
             _purge(fdir)
             sys.path.insert(0, str(fdir))
             try:

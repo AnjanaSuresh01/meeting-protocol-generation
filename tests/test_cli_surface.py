@@ -19,7 +19,7 @@ RUNS = [
      ["usage: carry_tag.py [-h] [--out OUT] protocol transcript previous"], []),
     ("pipeline/postedit_effort.py", ["--help"], 0, ["--tree TREE", "--suffix SUFFIX"], []),
     ("pipeline/postedit_effort.py", [], 1,
-     ["needs evaluate_protocols.py, which is not part of this repository"], []),
+     ["needs evaluate_protocols.py, which is only in evaluation/"], []),
     ("pipeline/name_check.py", ["--help"], 0, ["--max-agreement", "--append"], []),
     ("pipeline/normalize_structure.py", [], 0,
      ["STRUCTURE NORMALISATION — deterministic layout repair", "nothing to repair."], []),
