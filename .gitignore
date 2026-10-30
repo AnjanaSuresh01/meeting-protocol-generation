@@ -21,7 +21,6 @@ transcript_gate*.json
 v10_asr_results.zip
 config.json
 der_answers.json
-evaluation/figures/*.png
 Meeting*.md
 Meeting*.docx
 Meeting*.pdf

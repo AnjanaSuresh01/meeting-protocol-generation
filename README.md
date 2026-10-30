@@ -14,7 +14,7 @@ This page is the map of the code. It shows what each folder does, the order in w
 |---|---|---|
 | [`pipeline/`](pipeline/README.md) | the system: three GPU notebooks write the transcripts, and `protokoll.py` writes the protocol | Chapter 4 |
 | [`recognizers/`](recognizers/README.md) | runs the six recognizers on the 1,939 clips of the eight team meetings, and the decoder-biasing run of Canary-1B-v2 | Sections 4.4 and 4.5 |
-| [`evaluation/`](evaluation/README.md) | the gold set, the scores of the recognizers, the scoring of the protocols, the runs with GLM 5.3 Flash, and the scripts that draw the figures | Chapter 5, the figures |
+| [`evaluation/`](evaluation/README.md) | the gold set, the scores of the recognizers, the scoring of the protocols and the runs with GLM 5.3 Flash | Chapter 5 |
 | [`environments/`](environments/README.md) | the three Python environments on JupyterHub and their exact package versions | |
 | `tests/` | 87 checks that need no data, no keys and no network | |
 | `tools/` | `sync_copies.py`, which keeps the copied modules identical | |
@@ -67,7 +67,6 @@ The steps run in this order. Each one reads what the steps before it wrote. The 
 | 4 | `pipeline/` | `generate_protocols.py --v10 --fixed`, `protocol_repair.py --apply` and `validate_protocols_v10.py` (calls LISA) | the 96 protocols of the six-recognizer grid | 5.4, 5.5 |
 | 5 | `evaluation/` | `run_deliverable.py`, `run_cite_arm.py` and `run_repair_rerun.py` (call LISA), then `remerge_deliverable.py` | the evaluated runs of `protokoll.py` and the runs with GLM 5.3 Flash | 4.3, 5.3 to 5.7 |
 | 6 | `evaluation/` | the scoring scripts of part 2 of [`evaluation/README.md`](evaluation/README.md) | the results on the protocols | 5.3 to 5.7, Appendix D |
-| 7 | `evaluation/figures/` | the eight figure scripts | the figures | Figures 4.1 to 6.2 |
 
 Steps 4 and 5 call LISA. LISA no longer offers the model versions of the thesis ([LISA model](#lisa-model)), so a new run writes different protocols. Step 6 scores the stored runs from the data package and needs no LISA.
 
@@ -91,19 +90,16 @@ All scripts below are in `evaluation/` unless another folder is named. [`evaluat
 | 5.6 editing effort and coverage | `score_editforward.py`, `strip_copies_rescore.py`, `delete_interval_2026-10-12.py`, `unsaid_bullets_check.py`, `thirds_recall.py`, `trend_thirds_2026-10-11.py`, `paired_and_null_2026-10-11.py`, `blind_coverage_read.py`, `blind_read_glm.py`, `coverage_semantic.py`, `coverage_rerank.py`, `judge_calibrate.py`, `depth_compare_ch5.py` |
 | 5.7 runs with GLM 5.3 Flash | `run_repair_rerun.py`, `score_repair_rerun.py`, `score_repair_rerun_extra.py`, `model_comparison_2026-10-12.py`, `blind_read_glm.py`, `lisa_pro_probe.py` |
 | Appendix D, values per meeting | `per_meeting_2026-10-12.py`, `model_comparison_2026-10-12.py` |
-| Figures 4.1 to 4.4 | `figures/fig_system_overview_2026-10-28.py`, `figures/fig_evaluation_pipeline.py`, `figures/fig_segment_lengths_2026-10-28.py`, `figures/fig_recognizer_selection_2026-10-29.py` |
-| Figures 5.1 and 5.2 | `figures/fig5_1_wer_kept_2026-10-29.py`, `figures/fig_strip_copies.py` |
-| Figures 6.1 and 6.2 | `figures/fig6_1_v3_2026-10-25.py`, `figures/fig6_2_chain_2026-10-26.py` |
 
 A few counts in the thesis come from reading the outputs, such as the kinds of the 34 missed bullets in Table 5.13. These readings are stored as data files, not computed by a script.
 
 ## LISA model
 
-All protocols evaluated in the thesis were written by LISA Pro in the version `lisa-pro-03-2026` (Qwen3.5-397B-A17B). The comparison with LISA Flash used `lisa-flash-03-2026`. LISA no longer offers these versions. Since October 2026, LISA Pro has run on GLM 5.3 Flash. A new run therefore writes different protocols. The thesis reports its runs with GLM 5.3 Flash separately, in Section 5.7.
+All protocols evaluated in the thesis were written by LISA Pro in the version `lisa-pro-03-2026` (Qwen3.5-397B-A17B). The comparison with LISA Flash used `lisa-flash-03-2026`. LISA no longer offers these versions. LISA Pro now runs on GLM 5.3 Flash. A new run therefore writes different protocols. The thesis reports its runs with GLM 5.3 Flash separately, in Section 5.7.
 
 `protokoll.py` uses `lisa-pro` by default. For every model name that does not end in `-03-2026`, it sets `LISA_REASONING_EFFORT=low`, unless the variable is already set. The scripts that name `lisa-pro-03-2026` in their code (`generate_protocols.py` and the run and judge scripts in `evaluation/`) need the model name changed before they can run.
 
-`LISA_BASE_URL` can end in `/openai`, as in `pipeline/.env.example`, or in `/api`. On 29 October 2026 both addresses answered requests to `lisa-pro` and `lisa-flash`.
+`LISA_BASE_URL` can end in `/openai`, as in `pipeline/.env.example`, or in `/api`. Both addresses answered requests to `lisa-pro` and `lisa-flash`.
 
 ## Data and keys
 

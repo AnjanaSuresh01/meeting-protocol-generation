@@ -69,7 +69,7 @@ pip freeze > ~/requirements_nemoenv_now.txt
 diff ~/requirements_nemoenv_now.txt <repository>/environments/requirements_cluster_canary.txt
 ```
 
-`requirements_cluster_canary.txt` is the environment of 15 October 2026. A new build can differ in minor versions, because steps 2 and 3 install the newest releases.
+`requirements_cluster_canary.txt` is the environment that ran the tests. A new build can differ in minor versions, because steps 2 and 3 install the newest releases.
 
 ## Using the kernel
 

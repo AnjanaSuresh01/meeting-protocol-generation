@@ -143,7 +143,7 @@ def _ref_speaker_at(ref: list[Segment], t: float) -> str | None:
     best, best_ov = None, 0.0
     for st, du, s in ref:
         if st <= t < st + du:
-            return s                                     # first covering segment; overlap is not resolved
+            return s                                     # first covering segment, overlap is not resolved
     return best
 
 
@@ -156,7 +156,7 @@ def wder(words: list[tuple[float, str]], ref: list[Segment],
     for t, hyp_spk in words:
         ref_spk = _ref_speaker_at(ref, t)
         if ref_spk is None:
-            continue                                     # word in a non-speech ref gap; skip
+            continue                                     # word in a non-speech ref gap, skip
         counted += 1
         if mapping.get(hyp_spk) != ref_spk:
             wrong += 1

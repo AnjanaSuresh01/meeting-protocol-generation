@@ -1,6 +1,6 @@
 # Evaluation
 
-This folder holds the code behind the results of Chapter 5 of the thesis and the scripts that draw its figures. Part 1 scores the six recognizers on the gold set. Part 2 scores the protocols that LISA wrote, including the runs with GLM 5.3 Flash. Part 3 draws the figures.
+This folder holds the code behind the results. Part 1 scores the six recognizers on the gold set. Part 2 scores the protocols that LISA wrote, including the runs with GLM 5.3 Flash.
 
 Everything runs in the JupyterHub terminal, in `~/protokollenv` ([`../environments/README.md`](../environments/README.md)). Only the scripts marked "LISA" call the language model. All others run offline on the CPU.
 
@@ -223,31 +223,11 @@ python recount_numbers.py
 - `trend_thirds_2026-10-11.py` reads `goldset/` relative to the current folder, so start it from this folder.
 - `score_editforward.py` rewrites `goldset/ladder_split.json` during its run and then restores it.
 
-## Part 3: the figures
-
-The figure scripts are in `figures/`. Each one writes its PNG file next to itself.
-
-| Script | Figure | Reads |
-|---|---|---|
-| `figures/fig_system_overview_2026-10-28.py` | 4.1, components and data flow of the system | nothing (drawn from fixed labels) |
-| `figures/fig_evaluation_pipeline.py` | 4.2, the evaluation pipeline | nothing (drawn from fixed labels) |
-| `figures/fig_segment_lengths_2026-10-28.py` | 4.3, durations of the 1,939 segments | `goldset/segments_v9_all.json` |
-| `figures/fig_recognizer_selection_2026-10-29.py` | 4.4, selection of the three recognizers | `goldset/score_v10_2026-10-01.json`, `goldset/rover_trio_2026-10-09.json` |
-| `figures/fig5_1_wer_kept_2026-10-29.py` | 5.1, WER per system and of the vote | `goldset/score_v10_2026-10-01.json`, `goldset/rover_trio_2026-10-09.json` |
-| `figures/fig_strip_copies.py` | 5.2, origin of the leaf bullets of the minutes | `goldset/strip_copies_rescore_2026-10-07.json` |
-| `figures/fig6_1_v3_2026-10-25.py` | 6.1, the system against last week's protocol alone | nothing (the values are written in the script) |
-| `figures/fig6_2_chain_2026-10-26.py` | 6.2, where content is lost along the chain | nothing (the values are written in the script) |
-
-```bash
-cd <repository>/evaluation
-python figures/fig5_1_wer_kept_2026-10-29.py
-```
-
 ## Reproduction check
 
-Part 1: on 15 October 2026 the first ten scripts of the table were run in a copy of this folder with the provided data. The output of `build_goldset_v10.py` was identical to the stored file, byte for byte. The other result files were identical apart from date and build fields. On 19 October the ten scripts were run again with the cleaned code, and no result file changed. `vote_vs_singles.py` and `whisper_lineage_closeness.py` were added on 29 October. Both wrote result files identical to the stored ones.
+Part 1: the first ten scripts of the table were run in a copy of this folder with the provided data. The output of `build_goldset_v10.py` was identical to the stored file, byte for byte. The other result files were identical apart from date and build fields. The ten scripts were run again after the comments were shortened, and no result file changed. `vote_vs_singles.py` and `whisper_lineage_closeness.py` were added later. Both wrote result files identical to the stored ones.
 
-Part 2 and part 3: on 29 October 2026 every script of the order above ran once in a copy with the provided data. The data were reset before each script, so that no script saw the output of another. The scripts ran twice, once with the code of the thesis runs and once with the code of this folder. Both versions gave the same result files and the same printed numbers. The only exceptions are the reworded messages and one removed quotation (`../CHANGES.md`). The eight figures were identical to those of the thesis, byte for byte.
+Part 2: every script of the order above ran once in a copy with the provided data. The data were reset before each script, so that no script saw the output of another. The scripts ran twice, once with the code of the thesis runs and once with the code of this folder. Both versions gave the same result files and the same printed numbers. The only exceptions are the reworded messages and one removed quotation.
 
 Of the result files the run wrote, 39 were identical to the stored ones. These files differed:
 

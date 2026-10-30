@@ -11,8 +11,6 @@ This folder decodes the same 1,939 clips of the eight team meetings with all six
 | `cohere` | `CohereLabs/cohere-transcribe-03-2026` |
 | `granite41` | `ibm-granite/granite-speech-4.1-2b` |
 
-This is the code that produced the thesis results. On 19 October 2026 its comments were shortened, and a few messages and defaults were fixed (`../CHANGES.md`). Keep the files in one folder. The scripts import each other by name and find their data relative to their own location.
-
 ## Files
 
 | File | Runs on | What it does |
@@ -97,7 +95,7 @@ Then compare the results with the frozen files.
 
 ## Points to know
 
-- Cohere Transcribe loads its model code from Hugging Face (`trust_remote_code=True`), and that code changed after the thesis decodes. On 19 October 2026 the JupyterHub cache held three revisions: `32d9e4ba6271d78168c095c2f90bc173eaad97d2` (24 May), `b1eacc2686a3d08ceaae5f24a88b1d519620bc09` (25 June) and `d552dadc2922ba6f6c1f994f8db904d52dcaf942` (19 October). The decodes of September most likely used `b1eacc26…`, the newest revision in the cache before October. To repeat them with that revision, pass `revision="b1eacc2686a3d08ceaae5f24a88b1d519620bc09"` to the three `from_pretrained` calls in cell 5 ("5. Cohere Transcribe") of `NB_v10_asr.ipynb`.
+- Cohere Transcribe loads its model code from Hugging Face (`trust_remote_code=True`), and that code changed after the thesis decodes. The JupyterHub cache held three revisions, from oldest to newest: `32d9e4ba6271d78168c095c2f90bc173eaad97d2`, `b1eacc2686a3d08ceaae5f24a88b1d519620bc09` and `d552dadc2922ba6f6c1f994f8db904d52dcaf942`. The thesis decodes most likely used `b1eacc26…`, the newest revision that existed when they ran. To repeat them with that revision, pass `revision="b1eacc2686a3d08ceaae5f24a88b1d519620bc09"` to the three `from_pretrained` calls in cell 5 ("5. Cohere Transcribe") of `NB_v10_asr.ipynb`.
 - `resegment_v9.py` writes `goldset/segments_v9_all.new.json` unless `--out` names another file. The frozen `goldset/segments_v9_all.json` is only replaced when it is named explicitly.
 - `flag_edge_words.py` annotates the files named by `--files` in place. It has no default file.
 - If a whole-meeting Whisper file of `pipeline_outputs_extracted/outputs/whisper/` is missing, the drift correction falls back to no correction. No error is raised, and the segment boundaries then shift.
@@ -107,5 +105,4 @@ Then compare the results with the frozen files.
 - When a clip raises an error, a model cell stores an empty text and prints the first 70 characters of the error. Check the printed counts of non-empty results at the end.
 
 ## Reproduction check
-
-On 15 October 2026, steps 3 and 4 were run in a copy of this folder. The run started from the Whisper files as `NB_v10_asr.ipynb` had written them and from the three files of `NB_whisper_long.ipynb`. The merged Whisper files, `goldset/segment_loop_gate.json` and all 112 meeting transcripts in `outputs_v10/` were identical to the stored files (line endings ignored). The check was repeated on 19 October with the cleaned code, with the same result. The notebooks need a GPU and were not run again.
+Steps 3 and 4 were run in a copy of this folder. The run started from the Whisper files as `NB_v10_asr.ipynb` had written them and from the three files of `NB_whisper_long.ipynb`. The merged Whisper files, `goldset/segment_loop_gate.json` and all 112 meeting transcripts in `outputs_v10/` were identical to the stored files (line endings ignored). The check was repeated with the same result. The notebooks need a GPU and were not run again.

@@ -1,6 +1,6 @@
 # Codebase map
 
-How the 209 files of this repository fit together: the two routes through the code, the order of the steps, and every file with what it imports and which files use it. 176 files are different, and 33 are identical copies (see [All 209 files](#all-209-files)). File names link to the files.
+How the 200 files of this repository fit together: the two routes through the code, the order of the steps, and every file with what it imports and which files use it. 167 files are different, and 33 are identical copies (see [All 200 files](#all-200-files)). File names link to the files.
 
 ## How the parts connect
 
@@ -14,8 +14,8 @@ flowchart LR
   lisa(["LISA<br/>language model service"])
   out[/"Draft protocol<br/>.md and 2 lists to check"/]
   rcg["recognizers/<br/>3 GPU notebooks, terminal scripts"]
-  ev["evaluation/<br/>scores, runs, figures"]
-  res[/"Thesis results<br/>Chapter 5 and the figures"/]
+  ev["evaluation/<br/>scores and runs"]
+  res[/"Thesis results<br/>Chapter 5"/]
   rec -->|audio| s1
   s1 -->|transcript files| s2
   prev -->|previous protocol| s2
@@ -172,7 +172,6 @@ flowchart LR
   mins[/"human minutes<br/>Meeting_2026-*.md"/]
   sc["scoring scripts<br/>Sections 5.3 to 5.7"]
   res[/"result files<br/>goldset/"/]
-  fig["figures/<br/>8 figure scripts"]
   drv --> pk
   pk -->|prompt| lisa
   lisa -->|items| pk
@@ -180,7 +179,6 @@ flowchart LR
   runs --> sc
   mins --> sc
   sc --> res
-  res --> fig
 ```
 
 | Script, in run order | Writes | Result | Section |
@@ -237,31 +235,17 @@ flowchart LR
 
 The runs themselves: [`run_deliverable.py`](evaluation/run_deliverable.py), [`run_cite_arm.py`](evaluation/run_cite_arm.py) and [`run_repair_rerun.py`](evaluation/run_repair_rerun.py) call LISA. [`remerge_deliverable.py`](evaluation/remerge_deliverable.py) rebuilds the stored protocols of a run from its saved drafts without LISA.
 
-### The figures
-
-| Script | Writes | Figure |
-|---|---|---|
-| [`figures/fig_system_overview_2026-10-28.py`](evaluation/figures/fig_system_overview_2026-10-28.py) | `figures/fig_system_overview_2026-10-28.png` | 4.1: draws the components and data flow of the system. |
-| [`figures/fig_evaluation_pipeline.py`](evaluation/figures/fig_evaluation_pipeline.py) | `figures/fig_evaluation_pipeline.png` | 4.2: draws the evaluation pipeline. |
-| [`figures/fig_segment_lengths_2026-10-28.py`](evaluation/figures/fig_segment_lengths_2026-10-28.py) | `figures/fig_segment_lengths_2026-10-28.png` | 4.3: histogram of the 1,939 segment durations by type of cut, from goldset/segments_v9_all.json. |
-| [`figures/fig_recognizer_selection_2026-10-29.py`](evaluation/figures/fig_recognizer_selection_2026-10-29.py) | `figures/fig_recognizer_selection_2026-10-29.png` | 4.4: selection of the three recognizers from the six, from the score and vote results. |
-| [`figures/fig5_1_wer_kept_2026-10-29.py`](evaluation/figures/fig5_1_wer_kept_2026-10-29.py) | `figures/fig5_1_wer_kept_2026-10-29.png` | 5.1: WER with intervals of the six recognizers and of the kept vote, with the reader band. |
-| [`figures/fig_strip_copies.py`](evaluation/figures/fig_strip_copies.py) | `figures/fig_strip_copies.png` | 5.2: origin of the leaf bullets of the reference protocols per meeting, from strip_copies_rescore_2026-10-07.json. |
-| [`figures/fig6_1_v3_2026-10-25.py`](evaluation/figures/fig6_1_v3_2026-10-25.py) | `figures/fig6_1_v3_2026-10-25.png` | 6.1: the system against last week's protocol on five shares (values typed into the script). |
-| [`figures/fig6_2_chain_2026-10-26.py`](evaluation/figures/fig6_2_chain_2026-10-26.py) | `figures/fig6_2_chain_2026-10-26.png` | 6.2: where content is lost along the chain (values typed into the script). |
-
-## All 209 files
+## All 200 files
 
 Imports were read from the code. A script finds the files it imports in its own folder, so the names in a row refer to files of the same folder unless a folder is given.
 
-### Top level (8 files)
+### Top level (7 files)
 
 Front page, list of changes, settings, and this map.
 
 | File | What it is | Imports | Used by |
 |---|---|---|---|
 | [`.gitignore`](.gitignore) | Tells Git which files never to upload: the key file, audio, data folders, outputs, logs and caches. | – | – |
-| [`CHANGES.md`](CHANGES.md) | The changes made after the thesis runs: on 19 October shortened comments, two renamed files and 30 small fixes, on 29 October the scripts added for Chapter 5 and the figures. | – | – |
 | [`CODEBASE_MAP.md`](CODEBASE_MAP.md) | This map: how the folders connect, the order of the steps, and every file with its imports. | – | – |
 | [`DATA.md`](DATA.md) | The data each task needs, the three data packages and where their files go. The data are not in the repository. | – | – |
 | [`GETTING_STARTED.md`](GETTING_STARTED.md) | For a newcomer: accounts, installation, keys, the first test run, the tasks in order, and what to do when something fails. | – | – |
@@ -277,14 +261,14 @@ The system: recording and last week's protocol in, draft protocol out.
 |---|---|---|---|
 | [`.env.example`](pipeline/.env.example) | A template for the key file `.env` (LISA key, LISA address, Hugging Face token). The real `.env` is created on JupyterHub and never uploaded. | – | – |
 | [`README.md`](pipeline/README.md) | How to run the pipeline on JupyterHub: the environments, the data folder, the commands of steps 1 and 2, and all options. | – | – |
-| [`TESTED.md`](pipeline/TESTED.md) | What was tested and the results: the JupyterHub runs of 15 and 19 October and the checks of the cleanup. | – | – |
+| [`TESTED.md`](pipeline/TESTED.md) | What was tested and the results: the JupyterHub runs and the checks after the cleanup. | – | – |
 | [`asr_chunks.py`](pipeline/asr_chunks.py) | Splits audio longer than 28 s at its quietest points, because Whisper reads at most 30 s at once. Used by notebook 1c. | – | [`cluster/step1c_cohere_whisper_transcribe.ipynb`](pipeline/cluster/step1c_cohere_whisper_transcribe.ipynb), [`protokoll.py`](pipeline/protokoll.py) |
 | [`attribution_baselines.py`](pipeline/attribution_baselines.py) | The functions `read_any` and `jac`. As a script, it compared the speaker naming with simple baselines. | [`evaluate_speaker_attribution.py`](pipeline/evaluate_speaker_attribution.py) | [`carry_forward.py`](pipeline/carry_forward.py), [`handover_naming.py`](pipeline/handover_naming.py), [`protokoll.py`](pipeline/protokoll.py), [`voice_profiles.py`](pipeline/voice_profiles.py) |
 | [`carry_forward.py`](pipeline/carry_forward.py) | Copies last week's protocol and inserts this week's new items under their person and topic. This is the carry-over. | [`attribution_baselines.py`](pipeline/attribution_baselines.py), [`carry_tag.py`](pipeline/carry_tag.py), [`evaluate_speaker_attribution.py`](pipeline/evaluate_speaker_attribution.py), [`postedit_effort.py`](pipeline/postedit_effort.py) | [`protokoll.py`](pipeline/protokoll.py) |
 | [`carry_tag.py`](pipeline/carry_tag.py) | Marks items that come from last week and were not heard this week with [ÜBERTRAG]. | [`term_source.py`](pipeline/term_source.py) | [`carry_forward.py`](pipeline/carry_forward.py), [`protokoll.py`](pipeline/protokoll.py), [`stale_flag.py`](pipeline/stale_flag.py), [`style_exemplars.py`](pipeline/style_exemplars.py), [`tests/test_pipeline_rules.py`](tests/test_pipeline_rules.py) |
 | [`cluster/step1a_canary_transcribe.ipynb`](pipeline/cluster/step1a_canary_transcribe.ipynb) | Step 1a. Converts the recording to 16 kHz mono and transcribes it with Canary-1B-v2, with a timestamp for every word. Kernel "NeMo ASR". | [`thesis_pipeline/canary_diarize.py`](pipeline/thesis_pipeline/canary_diarize.py) | – |
 | [`cluster/step1b_pyannote_speakers.ipynb`](pipeline/cluster/step1b_pyannote_speakers.ipynb) | Step 1b. pyannote finds who speaks when, and every Canary word gets the speaker active at its midpoint. Writes the three files step 2 reads. Kernel "PyAnnote Diarization". | [`thesis_pipeline/canary_diarize.py`](pipeline/thesis_pipeline/canary_diarize.py), [`thesis_pipeline/env.py`](pipeline/thesis_pipeline/env.py) | – |
-| [`cluster/step1c_cohere_whisper_transcribe.ipynb`](pipeline/cluster/step1c_cohere_whisper_transcribe.ipynb) | Step 1c. Cohere Transcribe and Whisper large-v3-turbo-German transcribe the same speaker turns, so step 2 can compare three recognizers for the names. Kernel "NeMo ASR". Ran on JupyterHub on 19 October. | [`asr_chunks.py`](pipeline/asr_chunks.py), [`speaker_turns_v11.py`](pipeline/speaker_turns_v11.py), [`thesis_pipeline/env.py`](pipeline/thesis_pipeline/env.py), [`transcript_repair.py`](pipeline/transcript_repair.py) | – |
+| [`cluster/step1c_cohere_whisper_transcribe.ipynb`](pipeline/cluster/step1c_cohere_whisper_transcribe.ipynb) | Step 1c. Cohere Transcribe and Whisper large-v3-turbo-German transcribe the same speaker turns, so step 2 can compare three recognizers for the names. Kernel "NeMo ASR". Ran on JupyterHub. | [`asr_chunks.py`](pipeline/asr_chunks.py), [`speaker_turns_v11.py`](pipeline/speaker_turns_v11.py), [`thesis_pipeline/env.py`](pipeline/thesis_pipeline/env.py), [`transcript_repair.py`](pipeline/transcript_repair.py) | – |
 | [`entity_correct.py`](pipeline/entity_correct.py) | Helpers that compare spellings and sounds of names (used by the name checks), and the spelling correction of the research runs. | [`term_source.py`](pipeline/term_source.py) | [`generate_protocols.py`](pipeline/generate_protocols.py), [`invented_names.py`](pipeline/invented_names.py), [`name_check.py`](pipeline/name_check.py), [`protocol_repair.py`](pipeline/protocol_repair.py), [`protokoll.py`](pipeline/protokoll.py), [`tests/test_pipeline_naming.py`](tests/test_pipeline_naming.py) |
 | [`evaluate_speaker_attribution.py`](pipeline/evaluate_speaker_attribution.py) | Functions for reading protocols and comparing word sets. As a script, it measured how often a topic is credited to the right person. | – | [`attribution_baselines.py`](pipeline/attribution_baselines.py), [`carry_forward.py`](pipeline/carry_forward.py), [`handover_naming.py`](pipeline/handover_naming.py), [`protocol_repair.py`](pipeline/protocol_repair.py), [`protokoll.py`](pipeline/protokoll.py), [`term_source.py`](pipeline/term_source.py) |
 | [`gap_recover.py`](pipeline/gap_recover.py) | The settings for recovering dropped speech with Whisper large-v3-turbo-German, which `transcript_repair.py` uses. As a script, it recovered the dropped speech of the eight evaluation meetings. | – | [`transcript_repair.py`](pipeline/transcript_repair.py) |
@@ -346,13 +330,13 @@ The six speech recognizers on the 1,939 test clips.
 | [`thesis_pipeline/__init__.py`](recognizers/thesis_pipeline/__init__.py) | Identical copy of [`pipeline/thesis_pipeline/__init__.py`](pipeline/thesis_pipeline/__init__.py). | – | – |
 | [`thesis_pipeline/text_norm.py`](recognizers/thesis_pipeline/text_norm.py) | Identical copy of [`pipeline/thesis_pipeline/text_norm.py`](pipeline/thesis_pipeline/text_norm.py). | – | [`thesis_pipeline/goldset_local.py`](recognizers/thesis_pipeline/goldset_local.py) |
 
-### `evaluation/` (121 files)
+### `evaluation/` (113 files)
 
-The numbers of Chapter 5 and the figure scripts. 30 of its files are copies of pipeline modules.
+The numbers of Chapter 5. 30 of its files are copies of pipeline modules.
 
 | File | What it is | Imports | Used by |
 |---|---|---|---|
-| [`README.md`](evaluation/README.md) | Which script produces which result in Chapter 5 and the figures, what it reads and writes, the order of the steps, and the reproduction check. | – | – |
+| [`README.md`](evaluation/README.md) | Which script produces which result in Chapter 5, what it reads and writes, the order of the steps, and the reproduction check. | – | – |
 | [`absent_reachability.py`](evaluation/absent_reachability.py) | Checks whether the topics of a person's section occur in the transcripts of the meeting; imported by ladder_split.py. | [`term_source.py`](evaluation/term_source.py) | [`ladder_split.py`](evaluation/ladder_split.py) |
 | [`acronym_swap_check.py`](evaluation/acronym_swap_check.py) | Flags bullets that mix up TTS and STT/ASR; used by qa_protocols.py. | – | [`qa_protocols.py`](evaluation/qa_protocols.py) |
 | [`asr_eval_scope.py`](evaluation/asr_eval_scope.py) | Decides which segments the evaluation may score (excludes forced cuts and unusable clips). | [`rater_notes.py`](evaluation/rater_notes.py) | [`build_goldset_v10.py`](evaluation/build_goldset_v10.py) |
@@ -433,14 +417,6 @@ The numbers of Chapter 5 and the figure scripts. 30 of its files are copies of p
 | [`vote_vs_singles.py`](evaluation/vote_vs_singles.py) | Tests the kept word vote against each of the six single recognizers, with Holm correction. | [`rover_trio.py`](evaluation/rover_trio.py), [`score_v10.py`](evaluation/score_v10.py) | – |
 | [`wer_block_bootstrap.py`](evaluation/wer_block_bootstrap.py) | `goldset/wer_block_bootstrap_2026-10-01.json` | [`score_v10.py`](evaluation/score_v10.py), [`thesis_pipeline/metrics.py`](evaluation/thesis_pipeline/metrics.py), [`thesis_pipeline/text_norm.py`](evaluation/thesis_pipeline/text_norm.py) | – |
 | [`whisper_lineage_closeness.py`](evaluation/whisper_lineage_closeness.py) | How close each output is to the scored output of Whisper large-v3-turbo and of Canary-1B-v2. | [`score_v10.py`](evaluation/score_v10.py) | – |
-| [`figures/fig5_1_wer_kept_2026-10-29.py`](evaluation/figures/fig5_1_wer_kept_2026-10-29.py) | WER with intervals of the six recognizers and of the kept vote, with the reader band. | – | – |
-| [`figures/fig6_1_v3_2026-10-25.py`](evaluation/figures/fig6_1_v3_2026-10-25.py) | The system against last week's protocol on five shares (values typed into the script). | – | – |
-| [`figures/fig6_2_chain_2026-10-26.py`](evaluation/figures/fig6_2_chain_2026-10-26.py) | Where content is lost along the chain (values typed into the script). | – | – |
-| [`figures/fig_evaluation_pipeline.py`](evaluation/figures/fig_evaluation_pipeline.py) | Draws the evaluation pipeline. | – | – |
-| [`figures/fig_recognizer_selection_2026-10-29.py`](evaluation/figures/fig_recognizer_selection_2026-10-29.py) | Selection of the three recognizers from the six, from the score and vote results. | – | – |
-| [`figures/fig_segment_lengths_2026-10-28.py`](evaluation/figures/fig_segment_lengths_2026-10-28.py) | Histogram of the 1,939 segment durations by type of cut, from goldset/segments_v9_all.json. | – | – |
-| [`figures/fig_strip_copies.py`](evaluation/figures/fig_strip_copies.py) | Origin of the leaf bullets of the reference protocols per meeting, from strip_copies_rescore_2026-10-07.json. | – | – |
-| [`figures/fig_system_overview_2026-10-28.py`](evaluation/figures/fig_system_overview_2026-10-28.py) | Draws the components and data flow of the system. | – | – |
 | [`thesis_pipeline/diarization_eval.py`](evaluation/thesis_pipeline/diarization_eval.py) | Diarization metrics (DER with Hungarian mapping, speaker-count error, WDER); imported by evaluate_diarization.py. | – | [`evaluate_diarization.py`](evaluation/evaluate_diarization.py) |
 | [`thesis_pipeline/metrics.py`](evaluation/thesis_pipeline/metrics.py) | The metrics and statistics: error rates, bootstrap intervals, paired tests. | [`thesis_pipeline/text_norm.py`](evaluation/thesis_pipeline/text_norm.py) | [`evaluate_protocols.py`](evaluation/evaluate_protocols.py), [`number_norm_wer.py`](evaluation/number_norm_wer.py), [`score_v10.py`](evaluation/score_v10.py), [`wer_block_bootstrap.py`](evaluation/wer_block_bootstrap.py) |
 | [`attribution_baselines.py`](evaluation/attribution_baselines.py) | Identical copy of [`pipeline/attribution_baselines.py`](pipeline/attribution_baselines.py). | [`evaluate_speaker_attribution.py`](evaluation/evaluate_speaker_attribution.py) | [`attribution_blocklevel.py`](evaluation/attribution_blocklevel.py), [`carry_forward.py`](evaluation/carry_forward.py), [`compare_lisa_models.py`](evaluation/compare_lisa_models.py), [`compare_v10_rerun.py`](evaluation/compare_v10_rerun.py), [`handover_naming.py`](evaluation/handover_naming.py), [`handover_read.py`](evaluation/handover_read.py), [`handover_test.py`](evaluation/handover_test.py), [`ladder_split.py`](evaluation/ladder_split.py), [`order_rule_compare.py`](evaluation/order_rule_compare.py), [`protokoll.py`](evaluation/protokoll.py), [`recount_numbers.py`](evaluation/recount_numbers.py), [`voice_profiles.py`](evaluation/voice_profiles.py) |
@@ -483,7 +459,7 @@ The three Python environments on JupyterHub.
 | [`CLUSTER_SETUP.md`](environments/CLUSTER_SETUP.md) | Step-by-step build of the NeMo environment `~/nemoenv` (PyTorch first, then NeMo, then the kernel). | – | – |
 | [`README.md`](environments/README.md) | The three environments, how to build each one, and the models they download. | – | – |
 | [`patch_nemo_py310.py`](environments/patch_nemo_py310.py) | A one-line fix that lets NeMo 3.0.0 transcribe recordings longer than 40 s on Python 3.10. Run once. | – | – |
-| [`requirements_cluster_canary.txt`](environments/requirements_cluster_canary.txt) | The exact package versions of `~/nemoenv` on 15 October. | – | – |
+| [`requirements_cluster_canary.txt`](environments/requirements_cluster_canary.txt) | The exact package versions of `~/nemoenv`. | – | – |
 | [`requirements_cluster_protokoll.txt`](environments/requirements_cluster_protokoll.txt) | The exact package versions of `~/protokollenv`. | – | – |
 | [`requirements_cluster_pyannote.txt`](environments/requirements_cluster_pyannote.txt) | The exact package versions of `~/envs/pyannote-diar`. | – | – |
 
@@ -512,4 +488,4 @@ Keeps the 33 copies identical.
 | [`copy_groups.json`](tools/copy_groups.json) | The list of the 31 originals and their 33 copies. | – | – |
 | [`sync_copies.py`](tools/sync_copies.py) | Copies each original module over its copies, after a change. | – | – |
 
-This map was made on 20 October 2026 and extended on 29 October 2026, from the code of this repository.
+

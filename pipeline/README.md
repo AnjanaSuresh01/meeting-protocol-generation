@@ -1,8 +1,8 @@
 # The meeting protocol pipeline
 
-Master's thesis of Anjana Suresh, Hochschule Hof. State of the code: 19 October 2026.
+Master's thesis of Anjana Suresh, Hochschule Hof. 
 
-This folder holds the code of the current pipeline and nothing else. The pipeline turns a meeting recording and the previous protocol into a draft protocol. `protokoll.py` is the delivered system. `generate_protocols.py`, which it imports, also wrote the 96 protocols that the thesis compares across recognizers and LISA versions (see [The 96 protocols of the thesis](#the-96-protocols-of-the-thesis)). On 19 October the comments were shortened, and a few error messages and error paths were fixed. The outputs of the delivered runs did not change (see `TESTED.md`). Earlier versions and experiments are not included.
+This folder holds the code of the current pipeline. The pipeline turns a meeting recording and the previous protocol into a draft protocol. `protokoll.py` is the delivered system. `generate_protocols.py`, which it imports, also wrote the 96 protocols that the thesis compares across recognizers and LISA versions (see [The 96 protocols of the thesis](#the-96-protocols-of-the-thesis)). The outputs of the delivered runs did not change (see `TESTED.md`). Earlier versions and experiments are not included.
 
 The other folders of the repository hold the environment files (`../environments/`), the code that runs the six speech recognizers (`../recognizers/`), and the evaluation of the recognizers and of the protocols (`../evaluation/`).
 
@@ -11,7 +11,7 @@ Everything runs on the university JupyterHub, in two steps:
 1. Step 1 runs three notebooks on the GPU. Canary-1B-v2 transcribes the recording with word timestamps (notebook 1a). pyannote community-1 finds the speakers, and each word goes to the speaker active at its midpoint (notebook 1b). Cohere Transcribe and Whisper large-v3-turbo-German transcribe the same recording on the same speaker turns (notebook 1c).
 2. Step 2 runs `protokoll.py` in the JupyterHub terminal. It repairs the transcript and names the speakers. LISA then writes this week's items, and the program merges them into last week's protocol.
 
-Notebooks 1a and 1b and step 2 ran this way on 15 October 2026 for the meetings of 13 and 27 April. Notebook 1c and step 2 with all three recognizers ran on JupyterHub on 19 October for 27 April (see `TESTED.md`).
+Notebooks 1a and 1b and step 2 ran this way for the meetings of 13 and 27 April. Notebook 1c and step 2 with all three recognizers ran on JupyterHub for 27 April (see `TESTED.md`).
 
 ## Files
 
@@ -42,7 +42,7 @@ Notebooks 1a and 1b and step 2 ran this way on 15 October 2026 for the meetings 
 | `evaluate_speaker_attribution.py`, `attribution_baselines.py`, `postedit_effort.py` | helper functions only (reading protocols, word bags, matching). The pipeline uses nothing else from these files |
 | `thesis_pipeline/protocol_validate.py`, `thesis_pipeline/text_norm.py` | structure check and German text normalization |
 | **Setup** | |
-| `../environments/requirements_cluster_canary.txt`, `..._pyannote.txt`, `..._protokoll.txt` | the exact package versions of the three environments on 15 October (`pip freeze`) |
+| `../environments/requirements_cluster_canary.txt`, `..._pyannote.txt`, `..._protokoll.txt` | the exact package versions of the three environments (`pip freeze`) |
 | `../environments/patch_nemo_py310.py` | one-line fix that lets NeMo 3.0.0 transcribe long recordings on Python 3.10 |
 | `../environments/CLUSTER_SETUP.md` | how the NeMo environment is built |
 | `requirements.txt`, `.env.example` | packages for step 2, template for the tokens |
@@ -55,7 +55,7 @@ Below, `<repository>` stands for the folder that holds the repository on Jupyter
 
 ### Three environments
 
-| Environment | Python | Used for | Main packages on 15 October |
+| Environment | Python | Used for | Main packages |
 |---|---|---|---|
 | `~/nemoenv` (kernel "NeMo ASR") | 3.10 | notebooks 1a and 1c | NeMo 3.0.0, torch 2.13.0+cu130, numpy 1.26.4 |
 | `~/envs/pyannote-diar` (kernel "PyAnnote Diarization") | 3.11 | notebook 1b | pyannote.audio 4.0.7, torch 2.14.0, torchcodec 0.16.0 |
@@ -70,7 +70,7 @@ conda create -y -p ~/py310 -c conda-forge --override-channels python=3.10
 ```
 
 - For the NeMo environment, follow `../environments/CLUSTER_SETUP.md`. It builds `~/nemoenv` on `~/py310`. It installs PyTorch for CUDA 13.0 first, then `nemo_toolkit[asr]`, and then registers the kernel. Afterwards, run the NeMo fix once: `~/nemoenv/bin/python <repository>/environments/patch_nemo_py310.py`. Without it, NeMo 3.0.0 fails on any recording longer than 40 s with `SyntaxError: invalid syntax`, because one line needs Python 3.11.
-- The pyannote environment is a conda environment with Python 3.11 and pyannote.audio 4.0.7, registered as a Jupyter kernel. The one used on 15 October was built in September. For a new one:
+- The pyannote environment is a conda environment with Python 3.11 and pyannote.audio 4.0.7, registered as a Jupyter kernel. The one used for the tests already existed. For a new one:
   ```bash
   conda create -y -p ~/envs/pyannote-diar -c conda-forge --override-channels python=3.11
   ~/envs/pyannote-diar/bin/pip install torch torchaudio --index-url https://download.pytorch.org/whl/cu130
@@ -78,7 +78,7 @@ conda create -y -p ~/py310 -c conda-forge --override-channels python=3.10
   ~/envs/pyannote-diar/bin/python -m ipykernel install --user --name pyannote-diar --display-name "PyAnnote Diarization"
   ```
   pyannote 4 reads audio through torchcodec, which needs FFmpeg. The JupyterHub image has it (`/usr/bin/ffmpeg`, version 6.1.1).
-- The step-2 environment was built this way on 15 October:
+- The step-2 environment was built this way:
   ```bash
   ~/py310/bin/python -m venv ~/protokollenv
   source ~/protokollenv/bin/activate
@@ -88,7 +88,7 @@ conda create -y -p ~/py310 -c conda-forge --override-channels python=3.10
   python -m spacy download de_core_news_sm
   ```
 
-The NeMo and step-2 environments were repaired and built on 15 October as described. The two recipes for a *new* NeMo or pyannote environment were not run from scratch that day.
+The NeMo and step-2 environments were repaired and built as described. The two recipes for a *new* NeMo or pyannote environment were not run from scratch.
 
 ### Folder, data and tokens
 
@@ -98,7 +98,7 @@ Copy `.env.example` to `.env` in this folder and enter `LISA_API_KEY`, `LISA_BAS
 
 pyannote community-1 (notebook 1b) and Cohere Transcribe (notebook 1c) are gated models on Hugging Face. Accept their conditions once on their model pages, with the account the token belongs to. Notebooks 1b and 1c read the token from `.env`.
 
-On first use, step 2 downloads WavLM (about 0.8 GB) and Whisper large-v3-turbo-German (about 1.6 GB). Models go to `~/.cache/huggingface`. Watch the home quota. On 15 October the home folder was 97% full.
+On first use, step 2 downloads WavLM (about 0.8 GB) and Whisper large-v3-turbo-German (about 1.6 GB). Models go to `~/.cache/huggingface`. Watch the home quota. During the tests the home folder was 97% full.
 
 ## Step 1: transcripts (three notebooks)
 
@@ -215,14 +215,14 @@ The thesis compared 8 team meetings × 6 recognizers × 2 LISA versions. Each re
 
 `generate_protocols.py` asks LISA for the versions used in the thesis, `lisa-flash-03-2026` and `lisa-pro-03-2026` (`LISA_MODELS` near the top of the file). LISA no longer offers them, so every request fails. To run these steps today, change the two names to `lisa-flash` and `lisa-pro`. The protocols then come from the new models and differ from those of the thesis. Before step 3, also run `export LISA_REASONING_EFFORT=low`. Without it, the GLM model behind `lisa-pro` puts its whole answer into the reasoning field and returns no text.
 
-These steps were tested on 20 October 2026 on a copy, with the thesis transcripts and with LISA replaced by the saved thesis answers. They wrote 96 protocols, and 84 with `--carry`. The repair and the structure check passed.
+These steps were tested on a copy, with the thesis transcripts and with LISA replaced by the saved thesis answers. They wrote 96 protocols, and 84 with `--carry`. The repair and the structure check passed.
 
 ## Notes
 
-- All protocols evaluated in the thesis were written by LISA Pro in the version `lisa-pro-03-2026` (Qwen3.5-397B-A17B). The comparison with LISA Flash used `lisa-flash-03-2026`. LISA no longer offers these versions, so a new run writes different protocols. Since October 2026, `lisa-pro` has run on GLM 5.3 Flash. The thesis reports its runs with GLM 5.3 Flash separately, in Section 5.7. `protokoll.py` uses `lisa-pro` by default. The commands above pass `--lisa lisa-flash`, the model of the JupyterHub tests.
-- On 15 October some LISA requests failed with HTTP 500 or 404 while the next one succeeded. `LISA_RETRIES=5` makes the client try up to six times.
-- `LISA_BASE_URL` can end in `/openai`, as in `.env.example`, or in `/api`. On 29 October 2026 both addresses answered requests to `lisa-pro` and `lisa-flash`.
-- With current recognizer versions, a new transcript is close to the transcripts used in the thesis, but not always identical. On 15 October, 13 April gave the same 6,028 words as in July. 27 April gave 6,389 words against 6,481.
+- All protocols evaluated in the thesis were written by LISA Pro in the version `lisa-pro-03-2026` (Qwen3.5-397B-A17B). The comparison with LISA Flash used `lisa-flash-03-2026`. LISA no longer offers these versions, so a new run writes different protocols. `lisa-pro` now runs on GLM 5.3 Flash. The thesis reports its runs with GLM 5.3 Flash separately, in Section 5.7. `protokoll.py` uses `lisa-pro` by default. The commands above pass `--lisa lisa-flash`, the model of the JupyterHub tests.
+- Some LISA requests failed with HTTP 500 or 404 while the next one succeeded. `LISA_RETRIES=5` makes the client try up to six times.
+- `LISA_BASE_URL` can end in `/openai`, as in `.env.example`, or in `/api`. Both addresses answered requests to `lisa-pro` and `lisa-flash`.
+- With current recognizer versions, a new transcript is close to the transcripts used in the thesis, but not always identical. 13 April gave the same 6,028 words as the thesis transcript. 27 April gave 6,389 words against 6,481.
 - In the evaluated runs of `protokoll.py`, the two extra transcripts came from Cohere Transcribe and Granite Speech 4.1. Both were decoded from the 1,939 evaluation clips (`../recognizers/`). The final system uses Whisper large-v3-turbo-German in place of Granite. `../evaluation/compare_asr_trio.py` replays the naming with both sets and gets the same 34 speaker names. The lists of names to check differ. Notebook 1c makes the two transcripts for any new recording. Without `--also-transcript`, `protokoll.py` runs with Canary alone, and the name check compares against earlier protocols only.
 - `protokoll.py` still contains options from earlier experiments: `--cite`, `--segments`, `--depth`, `--llm-carry` and `--transcribe-here`. They are not part of the current pipeline. `--cite` stops with a message, because it needs `segment_cite.py`, which is not included. `--transcribe-here` diarizes inside step 2, which needs pyannote in the step-2 environment.
 - Recovered speech is cached in `cache_gap_recovery.json`, so a second run of the same meeting skips the Whisper decoding.

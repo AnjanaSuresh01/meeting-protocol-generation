@@ -1,6 +1,6 @@
 # Data
 
-This repository holds code only. The data are recordings and texts of internal meetings of a research group at Hochschule Hof. They contain the voices and names of its members, so they are not on GitHub. They are shared separately, only with people the group allows. To get them, ask the author of this repository.
+This repository holds code only. The data are recordings and texts of internal meetings of a research group at Hochschule Hof. They contain the voices and names of its members. They are shared separately, only with people the group allows. To get them, ask the author of this repository.
 
 ## Do I need the gold set?
 
@@ -9,10 +9,10 @@ This repository holds code only. The data are recordings and texts of internal m
 | Install the code and run the tests | no | none |
 | Write a protocol for a new meeting (`pipeline/protokoll.py`) | no | your recording and the protocol of the meeting before it |
 | Transcribe the evaluation clips with the six recognizers (`recognizers/`) | yes: the clips and the segment list | the eight recordings |
-| Compute the numbers of Chapter 5 and draw the figures (`evaluation/`) | yes: the reference texts | the recognizer outputs, the stored protocol runs and the human protocols |
+| Compute the numbers of Chapter 5 (`evaluation/`) | yes: the reference texts | the recognizer outputs, the stored protocol runs and the human protocols |
 | Write the 96 protocols of the thesis again (`pipeline/generate_protocols.py`) | two files of the gold-set folder | the recognizer transcripts and the previous protocols |
 
-`protokoll.py` reads no gold-set file. On 28 October 2026 it ran in a folder with no `goldset/` folder at all, on the 9 March meeting, with LISA replaced by its saved answer. All six output files were identical to those of the delivered run.
+`protokoll.py` reads no gold-set file. It was tested in a folder with no `goldset/` folder at all, on the 9 March meeting, with LISA replaced by its saved answer. All six output files were identical to those of the delivered run.
 
 ## What the gold set is
 
@@ -90,9 +90,9 @@ This package holds the recognizer outputs as well. The evaluation therefore runs
 | `evaluation/bias_full/sweep_full.json` | output of `NB_biasing_full.ipynb` |
 | `evaluation/dist/cluster_biasing_full/manifest_biasing_full.json` | input of the biasing run |
 
-These are exactly the files the first ten scripts of `evaluation/README.md` opened on 28 October 2026. With them, all ten scripts ended without error, and the eight result files were identical to the stored ones (line endings ignored).
+These are exactly the files the first ten scripts of `evaluation/README.md` opened in a test run. With them, all ten scripts ended without error, and the eight result files were identical to the stored ones (line endings ignored).
 
-Part 2 of `evaluation/README.md` (Sections 5.3 to 5.7) and the figure scripts need more files from the same package:
+Part 2 of `evaluation/README.md` (Sections 5.3 to 5.7) needs more files from the same package:
 
 | Path | Content |
 |---|---|
@@ -110,8 +110,8 @@ Part 2 of `evaluation/README.md` (Sections 5.3 to 5.7) and the figure scripts ne
 | `evaluation/transcript_gate.json` | the gate results of the long-form transcripts |
 | `evaluation/Team-Meeting_2026-*.mp3`, `.flac` | the eight recordings. Only `per_meeting_2026-10-12.py` reads them, for their length |
 
-On 29 October 2026 these scripts ran on a copy of the full package. The files they opened are the ones listed in this section and the section before it. The results are described in the reproduction check of `evaluation/README.md`.
+These scripts were tested on a copy of the full package. The files they opened are the ones listed in this section and the section before it. The results are described in the reproduction check of `evaluation/README.md`.
 
 ## Where the packages are kept
 
-The packages are not part of the Git history. The author keeps them in one place and gives the link to people who are allowed to use them. A GitHub release of this private repository, or a folder on the university's servers, both work. GitHub accepts release files up to 2 GiB each, and only collaborators of a private repository can download them. A release of a repository that is made public becomes public too.
+The packages are not part of the Git history. The author keeps them in one place and gives the link to people who are allowed to use them. A GitHub release of this private repository, or a folder on the university's servers, both work. GitHub accepts release files up to 2 GiB each, and only collaborators of a private repository can download them.

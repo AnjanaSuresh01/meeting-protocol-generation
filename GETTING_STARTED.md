@@ -1,6 +1,6 @@
 # Getting started
 
-This page is for someone who has never seen this project. It says what to get, what to install and which file to run first. It does not assume that you know GitHub.
+This page is for someone who has never seen this project. It says what to get, what to install and which file to run first.
 
 ## 1. What this repository does
 
@@ -10,7 +10,7 @@ The code turns the recording of a German meeting into a draft protocol (the minu
 |---|---|---|
 | `pipeline/` | write a protocol for one meeting | no |
 | `recognizers/` | transcribe the 1,939 evaluation clips with six speech recognizers | yes |
-| `evaluation/` | compute the numbers of Chapter 5 and draw the figures of the thesis | yes |
+| `evaluation/` | compute the numbers of Chapter 5 of the thesis | yes |
 | `environments/` | install the three Python environments | no |
 | `tests/`, `tools/` | check the code | no |
 
@@ -128,7 +128,7 @@ All in `recognizers/`. The details are in [`recognizers/README.md`](recognizers/
 
 ### Task C: the numbers of the thesis (needs `data_evaluation.zip`)
 
-All in `evaluation/`, in the terminal, on the CPU. Task B is not needed first, because the package holds the recognizer outputs. Run the scripts of parts 1 and 2 of [`evaluation/README.md`](evaluation/README.md) in the order given there, then compare the new results with the stored ones. Part 3 of that page draws the figures.
+All in `evaluation/`, in the terminal, on the CPU. Task B is not needed first, because the package holds the recognizer outputs. Run the scripts of parts 1 and 2 of [`evaluation/README.md`](evaluation/README.md) in the order given there, then compare the new results with the stored ones.
 
 ### Task D: the 96 protocols of the thesis (needs `data_pipeline.zip`)
 
@@ -144,4 +144,4 @@ In `pipeline/`, in the terminal: `generate_protocols.py --v10 --fixed`, then `pr
 | `SyntaxError: invalid syntax` from NeMo | the NeMo fix was not run | `~/nemoenv/bin/python <repository>/environments/patch_nemo_py310.py` |
 | 401 or 403 from Hugging Face | the token is missing or the model conditions were not accepted | step 7 |
 | LISA answers 404 or 500 | the model name no longer exists, or LISA is busy | use `--lisa lisa-flash` or `--lisa lisa-pro` and set `LISA_RETRIES=5` |
-| `Disk quota exceeded` | the models fill the home folder (43 GB on 15 October 2026) | delete unused models in `~/.cache/huggingface` |
+| `Disk quota exceeded` | the models fill the home folder (43 GB during the tests) | delete unused models in `~/.cache/huggingface` |
